@@ -3,6 +3,7 @@ resource "aws_vpc" "frontend-vpc" {
   enable_dns_hostnames = true
   tags = {
     Name = var.frontend-vpc-vars.name
+    Environment = terraform.workspace
   }
 }
 
@@ -11,6 +12,7 @@ resource "aws_internet_gateway" "frontend-internet-gateway" {
   vpc_id = aws_vpc.frontend-vpc.id
   tags = {
     Name = "frontend-internet-gateway"
+    Environment = terraform.workspace
   }
 }
 
@@ -19,6 +21,7 @@ resource "aws_vpc" "backend-vpc" {
   enable_dns_hostnames = true
   tags = {
     Name = var.backend-vpc-vars.name
+    Environment = terraform.workspace
   }
 }
 
@@ -30,6 +33,7 @@ resource "aws_subnet" "frontend-subnet" {
   vpc_id = aws_vpc.frontend-vpc.id
   tags = {
     Name = each.value["name"]
+    Environment = terraform.workspace
   }
 }
 
@@ -41,6 +45,7 @@ resource "aws_subnet" "backend-subnet" {
   vpc_id = aws_vpc.backend-vpc.id
   tags = {
     Name = each.value["name"]
+    Environment = terraform.workspace
   }
 }
 
@@ -57,6 +62,7 @@ resource "aws_vpc_peering_connection" "frontend-backend" {
 
   tags = {
     Name = "frontend-backend-peering"
+    Environment = terraform.workspace
   }
 }
 
@@ -65,6 +71,7 @@ resource "aws_eip" "backend-eip-az1" {
   vpc = true
   tags = {
     Name = "nat-gw-eip-az1"
+    Environment = terraform.workspace
   }
 }
 
@@ -73,6 +80,7 @@ resource "aws_eip" "backend-eip-az2" {
   vpc = true
   tags = {
     Name = "nat-gw-eip-az2"
+    Environment = terraform.workspace
   }
 }
 
@@ -81,6 +89,7 @@ resource "aws_eip" "backend-eip-az3" {
   vpc = true
   tags = {
     Name = "nat-gw-eip-az3"
+    Environment = terraform.workspace
   }
 }
 
@@ -90,6 +99,7 @@ resource "aws_nat_gateway" "backend-natgw-az1" {
   subnet_id = aws_subnet.backend-subnet["az1"].id
   tags = {
     Name = "nat-gw-az1"
+    Environment = terraform.workspace
   }
 }
 
@@ -99,6 +109,7 @@ resource "aws_nat_gateway" "backend-natgw-az2" {
   subnet_id = aws_subnet.backend-subnet["az2"].id
   tags = {
     Name = "nat-gw-az2"
+    Environment = terraform.workspace
   }
 }
 
@@ -108,5 +119,6 @@ resource "aws_nat_gateway" "backend-natgw-az3" {
   subnet_id = aws_subnet.backend-subnet["az3"].id
   tags = {
     Name = "nat-gw-az3"
+    Environment = terraform.workspace
   }
 }
