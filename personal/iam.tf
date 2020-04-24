@@ -33,13 +33,15 @@ resource "aws_iam_group_policy_attachment" "attach-test-group-custom-policy" {
   policy_arn = aws_iam_policy.test-group-custom-policy.arn
 }
 
-resource "aws_iam_user" "test-user-1" {
-  name = "test-user-1"
+resource "aws_iam_user" "test-users" {
+  count = length(var.user-list)
+  name = var.user-list[count.index]
 }
 
-resource "aws_iam_group_membership" "test-users" {
-  depends_on = [aws_iam_group.test-group,aws_iam_user.test-user-1]
+resource "aws_iam_group_membership" "test-users-membership" {
+  depends_on = [aws_iam_group.test-group,aws_iam_user.test-users]
   group = aws_iam_group.test-group.name
-  name = "test-users"
-  users = [aws_iam_user.test-user-1.name]
+  name = aws_iam_group.test-group.name
+  users = var.user-list
 }
+
