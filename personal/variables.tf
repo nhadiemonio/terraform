@@ -124,8 +124,13 @@ variable "allow-restricted-web" {
    }
 }
 
-variable "bastion_internal_ip" {
-  default = "10.128.0.254"
+variable "bastion-host" {
+  default = {
+    internal_ip = "10.128.0.254"
+    ami_id = "ami-0a1a4d97d4af3009b"
+    instance_type = "t2.micro"
+    key_name = "user1"
+  }
 }
 
 variable "allow-bastion-ssh" {
@@ -149,5 +154,3 @@ variable "allow-restricted-ssh" {
     }
   }
 }
-
-

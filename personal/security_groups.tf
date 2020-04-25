@@ -1,3 +1,27 @@
+resource "aws_default_security_group" "default-fronted-sec-group" {
+  vpc_id = aws_vpc.frontend-vpc.id
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+  }
+}
+
+resource "aws_default_security_group" "default-backend-sec-group" {
+  vpc_id = aws_vpc.backend-vpc.id
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [
+      "0.0.0.0/0"
+    ]
+  }
+}
+
 resource "aws_security_group" "allow-public-web" {
   name = "allow-public-web"
   description = "allow-public-web"
@@ -72,4 +96,6 @@ resource "aws_security_group_rule" "allow-restricted-ssh" {
   cidr_blocks = each.value["src_cidr"]
   security_group_id = aws_security_group.allow-restricted-ssh.id
 }
+
+
 

@@ -93,6 +93,38 @@ resource "aws_eip" "backend-eip-az3" {
   }
 }
 
+resource "aws_default_route_table" "frontend-route-table" {
+  depends_on = [aws_vpc.frontend-vpc]
+  default_route_table_id = aws_vpc.frontend-vpc.default_route_table_id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.frontend-internet-gateway.id
+  }
+  route {
+    cidr_block = aws_vpc.backend-vpc.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.frontend-backend.id
+  }
+  tags = {
+    Name = "frontend-route-table"
+    Environment = terraform.workspace
+  }
+}
+
+resource "aws_default_route_table" "backend-route-table" {
+  default_route_table_id = aws_vpc.backend-vpc.default_route_table_id
+  route {
+    cidr_block = aws_vpc.frontend-vpc.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.frontend-backend.id
+  }
+  tags = {
+    Name = "frontend-route-table"
+    Environment = terraform.workspace
+  }
+}
+
+
+
+
 #resource "aws_nat_gateway" "backend-natgw-az1" {
 #  depends_on = [aws_eip.backend-eip-az1]
 #  allocation_id = aws_eip.backend-eip-az1.id
