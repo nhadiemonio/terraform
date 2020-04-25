@@ -70,6 +70,19 @@ variable "backend-subnet-vars" {
   }
 }
 
+variable "key-pairs-vars" {
+  type = map
+  default = {
+    user1 = {
+      key_name = "user1"
+      pub_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0k4xVUwlk9I+ZxHb4w1YJVxgMgpuWyB57ReZQ7Q15si0jQ63zxlVBg3LSOi/jy1P2HEKA4v6v8zkLpAKa0LA8+MmS7sik5ShYx1vNelGsaUv30JwiJDR0NMWYR9H9JfyopbJ0lcqDETvQEUnseriycx8WyC1Q9uUJAl0sYdseG7dtrXBUWviqYCoKLEer7nQ5FP4eDUQWBLxV4ys4CVdvkqRSeXgslQHaBnTUP4ReUC8iSyAHFAo26UT0JuMdmVNhsydqEedwNBBjWxJTrjCX/EvcZDIkstvW9IVo7xBmUOBp/DNQbFWw/Lt/x1BrR1CyGnGNpV9wwHLECspTrGUl user1"
+    },
+    user2 = {
+      key_name = "user2"
+      pub_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsUQhrhAymHDNQ8EaQIIzCvJhquF1swL6PRqyEhE/hHJvlOmKBk5oc8N5MnBUXRYQjbhXV1Qezs1oRYxO3x7RQ5WqdDFsnVFPHL9WjyqGniC152j173+RW+7Aknp+phaKZGIyZyQYcDTlsOIXh679uHq1E3W6ZaHs1mpa9R6VKEjoVatPfEs4PtxTkhx8x009GxEPTluR8fkeyAJ68Z8uiZbxaTigtwNABKp8XqmD6ogx6LKjwWBPiBUEBRcfY0KBBvJpMnFchj88B1QcdKYd801ow3DkHKu3SnsWj57Cmlywm3o5ZUzFYCymvVEPMfhv0DbAFx4E5FGTQW9mmltBV user2"
+    }
+  }
+}
 
 
 
