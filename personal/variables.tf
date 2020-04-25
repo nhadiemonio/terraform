@@ -84,5 +84,70 @@ variable "key-pairs-vars" {
   }
 }
 
+variable "allow-public-web" {
+  type = map
+  default = {
+    0 = {
+      type = "ingress"
+      dest_protocol = "tcp"
+      dest_from_port = "80"
+      dest_to_port = "80"
+      src_cidr = ["0.0.0.0/0"]
+    },
+    1 = {
+      type = "ingress"
+      dest_protocol = "tcp"
+      dest_from_port = "443"
+      dest_to_port = "443"
+      src_cidr = ["0.0.0.0/0"]
+    }
+  }
+}
+
+variable "allow-restricted-web" {
+  type = map
+  default = {
+    0 = {
+      type = "ingress"
+      dest_protocol = "tcp"
+      dest_from_port = "80"
+      dest_to_port = "80"
+      src_cidr = ["10.128.0.0/22","10.129.0.0/22"]
+    },
+    1 = {
+      type = "ingress"
+      dest_protocol = "tcp"
+      dest_from_port = "443"
+      dest_to_port = "443"
+      src_cidr = ["10.128.0.0/22","10.129.0.0/22"]
+     }
+   }
+}
+
+variable "bastion_internal_ip" {
+  default = "10.128.0.254"
+}
+
+variable "allow-bastion-ssh" {
+  default = {
+    type = "ingress"
+    dest_protocol = "tcp"
+    dest_from_port = "22"
+    dest_to_port = "22"
+    src_cidr = ["10.128.0.254/32"]
+  }
+}
+variable "allow-restricted-ssh" {
+  type = map
+  default = {
+    0 = {
+      type = "ingress"
+      dest_protocol = "tcp"
+      dest_from_port = "22"
+      dest_to_port = "22"
+      src_cidr = ["0.0.0.0/0"]
+    }
+  }
+}
 
 

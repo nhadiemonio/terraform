@@ -93,32 +93,32 @@ resource "aws_eip" "backend-eip-az3" {
   }
 }
 
-resource "aws_nat_gateway" "backend-natgw-az1" {
-  depends_on = [aws_eip.backend-eip-az1]
-  allocation_id = aws_eip.backend-eip-az1.id
-  subnet_id = aws_subnet.backend-subnet["az1"].id
-  tags = {
-    Name = "nat-gw-az1"
-    Environment = terraform.workspace
-  }
-}
+#resource "aws_nat_gateway" "backend-natgw-az1" {
+#  depends_on = [aws_eip.backend-eip-az1]
+#  allocation_id = aws_eip.backend-eip-az1.id
+#  subnet_id = aws_subnet.backend-subnet["az1"].id
+#  tags = {
+#    Name = "nat-gw-az1"
+#    Environment = terraform.workspace
+#  }
+#}
 
-resource "aws_nat_gateway" "backend-natgw-az2" {
-  depends_on = [aws_eip.backend-eip-az2]
-  allocation_id = aws_eip.backend-eip-az2.id
-  subnet_id = aws_subnet.backend-subnet["az2"].id
-  tags = {
-    Name = "nat-gw-az2"
-    Environment = terraform.workspace
-  }
-}
+#resource "aws_nat_gateway" "backend-natgw-az2" {
+#  depends_on = [aws_eip.backend-eip-az2]
+#  allocation_id = aws_eip.backend-eip-az2.id
+#  subnet_id = aws_subnet.backend-subnet["az2"].id
+#  tags = {
+#    Name = "nat-gw-az2"
+#    Environment = terraform.workspace
+#  }
+#}
 
-resource "aws_nat_gateway" "backend-natgw-az3" {
-  depends_on = [aws_eip.backend-eip-az3]
-  allocation_id = aws_eip.backend-eip-az3.id
-  subnet_id = aws_subnet.backend-subnet["az3"].id
-  tags = {
-    Name = "nat-gw-az3"
-    Environment = terraform.workspace
-  }
-}
+#resource "aws_nat_gateway" "backend-natgw-az3" {
+#  depends_on = [aws_eip.backend-eip-az3]
+#  allocation_id = aws_eip.backend-eip-az3.id
+#  subnet_id = aws_subnet.backend-subnet["az3"].id
+#  tags = {
+#    Name = "nat-gw-az3"
+#    Environment = terraform.workspace
+#  }
+#}
