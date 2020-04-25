@@ -133,6 +133,14 @@ variable "bastion-host" {
   }
 }
 
+variable "web-host" {
+  default = {
+    ami_id = "ami-0a1a4d97d4af3009b"
+    instance_type = "t2.micro"
+    key_name = "user1"
+  }
+}
+
 variable "allow-bastion-ssh" {
   default = {
     type = "ingress"

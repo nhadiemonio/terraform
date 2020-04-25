@@ -5,6 +5,7 @@ resource "aws_instance" "bastion-host" {
   ami = var.bastion-host.ami_id
   instance_type = var.bastion-host.instance_type
   subnet_id = aws_subnet.frontend-subnet["az1"].id
+  private_ip = var.bastion-host.internal_ip
   vpc_security_group_ids = [
     aws_security_group.allow-restricted-ssh.id,
     aws_default_security_group.default-fronted-sec-group.id
