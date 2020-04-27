@@ -10,6 +10,22 @@ resource "aws_instance" "web-host" {
     aws_security_group.allow-frontend-web.id,
     aws_default_security_group.default-fronted-sec-group.id
   ]
+  provisioner "remote-exec" {
+    connection {
+      bastion_host = aws_instance.bastion-host.public_ip
+      bastion_private_key = file("~/.ssh/user1_id_rsa")
+      bastion_user = "ubuntu"
+      host = self.private_ip
+      private_key = file("~/.ssh/user1_id_rsa")
+      user = "ubuntu"
+    }
+    inline = [
+      "sudo apt -y update",
+      "sudo apt -y upgrade",
+      "sudo apt -y install nginx",
+      "sudo systemctl enable nginx --now"
+    ]
+  }
   tags = {
     Name = "web-${each.key}"
     Environment = terraform.workspace

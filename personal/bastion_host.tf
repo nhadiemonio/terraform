@@ -10,6 +10,11 @@ resource "aws_instance" "bastion-host" {
     aws_security_group.allow-restricted-ssh.id,
     aws_default_security_group.default-fronted-sec-group.id
   ]
+  connection {
+    host = self.public_ip
+    private_key = file("~/.ssh/user1_id_rsa")
+    user = "ubuntu"
+  }
   tags = {
     Name = "bastion"
     Environment = terraform.workspace
